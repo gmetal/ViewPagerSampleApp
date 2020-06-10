@@ -21,18 +21,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         setContentView(R.layout.activity_main);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+        tabLayout.addTab(tabLayout.newTab().setText("HTTP 100"));
+        tabLayout.addTab(tabLayout.newTab().setText("HTTP 200"));
+        tabLayout.addTab(tabLayout.newTab().setText("HTTP 500"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         viewPager = findViewById(R.id.pager);
-        final List<String> items = new ArrayList<>();
-        items.add("This is tab 1");
-        items.add("This is tab 2");
-        items.add("This is tab 3");
 
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this, items);
+        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this, getCatImageList());
         viewPager.setAdapter(pagerAdapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -53,5 +49,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onTabReselected(final TabLayout.Tab tab) {
 
+    }
+
+    private List<CatImage> getCatImageList() {
+
+        List<CatImage> catImageList = new ArrayList<>();
+        catImageList.add(new CatImage("https://http.cat/100", "HTTP 100"));
+        catImageList.add(new CatImage("https://http.cat/200", "HTTP 200"));
+        catImageList.add(new CatImage("https://http.cat/500", "HTTP 500"));
+        return catImageList;
     }
 }

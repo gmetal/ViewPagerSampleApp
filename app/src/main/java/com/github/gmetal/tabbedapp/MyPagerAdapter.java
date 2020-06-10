@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -14,9 +17,9 @@ import androidx.viewpager.widget.PagerAdapter;
 public class MyPagerAdapter extends PagerAdapter {
 
     private final Context mContext;
-    private List<String> mItems;
+    private List<CatImage> mItems;
 
-    public MyPagerAdapter(final Context context, final List<String> items) {
+    public MyPagerAdapter(final Context context, final List<CatImage> items) {
 
         mContext = context;
         mItems = items;
@@ -28,9 +31,13 @@ public class MyPagerAdapter extends PagerAdapter {
 
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         final View inflatedView = layoutInflater.inflate(R.layout.view_tab, null);
-        final String tabText = mItems.get(position);
-        final TextView tabTextView = inflatedView.findViewById(R.id.tab_text);
-        tabTextView.setText(tabText);
+        final CatImage currentCatImage = mItems.get(position);
+        final ImageView tabImageView = inflatedView.findViewById(R.id.tab_image);
+        final TextView tabTitle = inflatedView.findViewById(R.id.tab_title);
+
+        Picasso.with(mContext).load(currentCatImage.getImageUrl()).into(tabImageView);
+        tabTitle.setText(currentCatImage.getTitle());
+
         container.addView(inflatedView);
 
         return inflatedView;
